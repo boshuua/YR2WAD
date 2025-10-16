@@ -1,59 +1,73 @@
-/* Remove all old styles and replace with this */
 :host {
   display: block;
   height: 100vh;
 }
+
 .admin-layout {
   display: flex;
   height: 100%;
 }
+
 .sidebar {
-  width: 240px;
-  background: #2c3e50;
-  color: white;
-  padding: 1rem;
+  width: 250px;
+  background: var(--dark-blue);
+  color: #ecf0f1;
+  padding: 1.5rem 1rem;
   flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
 }
+
 .sidebar h3 {
   text-align: center;
-  margin-top: 0;
+  margin: 0 0 1.5rem 0;
   border-bottom: 1px solid #4a627a;
-  padding-bottom: 1rem;
+  padding-bottom: 1.5rem;
+  font-size: 1.25rem;
+  font-weight: 700;
 }
+
 .sidebar ul {
   list-style: none;
   padding: 0;
   margin: 0;
 }
+
 .sidebar a {
   display: block;
-  color: #ecf0f1;
+  color: #bdc3c7;
   text-decoration: none;
-  padding: 0.75rem 1rem;
+  padding: 0.8rem 1rem;
   border-radius: 5px;
   margin-bottom: 0.5rem;
-  transition: background-color 0.2s;
+  transition: background-color 0.2s, color 0.2s;
+  font-weight: 500;
 }
+
 .sidebar a:hover,
-.sidebar a.active { /* Add active class for styling */
+.sidebar a.active { /* This class will be added by Angular for the active route */
   background-color: #34495e;
+  color: var(--white);
 }
+
 .main-content {
   flex: 1;
   display: flex;
   flex-direction: column;
-  background-color: #f4f5f7;
-  overflow: hidden; /* Prevent double scrollbars */
+  background-color: var(--background-color);
+  overflow: hidden;
 }
+
 .main-header {
   padding: 1rem 1.5rem;
-  background: white;
-  border-bottom: 1px solid #e0e0e0;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  background: var(--white);
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
   z-index: 10;
 }
+
 .page-content {
   flex: 1;
-  padding: 1.5rem;
-  overflow-y: auto; /* Makes the content area scrollable */
+  padding: 2rem;
+  overflow-y: auto;
 }

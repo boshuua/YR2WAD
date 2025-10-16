@@ -25,7 +25,7 @@ export class LoginComponent {
         sessionStorage.setItem('currentUser', JSON.stringify(response.user));
         // Redirect based on access level
         if (response.user.access_level === 'admin') {
-          this.router.navigate(['/admin/dashboard']);
+          this.router.navigate(['/admin/overview']);
         } else {
           this.router.navigate(['/dashboard']);
         }

@@ -15,7 +15,7 @@ export const routes: Routes = [
   // This is the new Admin Layout Route
   {
     path: 'admin',
-    component: AdminDashboardComponent, // This is now the "Shell"
+    component: AdminDashboardComponent, // This is the "Shell"
     canActivate: [adminGuard],
     children: [
       { path: 'overview', component: OverviewComponent, data: { breadcrumb: 'Overview' } },
