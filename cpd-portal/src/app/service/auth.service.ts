@@ -11,14 +11,14 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   loginUser(credentials: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/user_login.php`, credentials);
+    return this.http.post(`${this.apiUrl}/user_login.php`, credentials, { withCredentials: true });
   }
 
-  // We will build the component for this later
   adminCreateUser(userData: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/admin_create_user.php`, userData);
+    return this.http.post(`${this.apiUrl}/admin_create_user.php`, userData, { withCredentials: true });
   }
+  
   getAllUsers(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/get_users.php`);
+    return this.http.get(`${this.apiUrl}/get_users.php`, { withCredentials: true });
   }
 }

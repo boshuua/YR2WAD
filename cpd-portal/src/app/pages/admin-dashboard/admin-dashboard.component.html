@@ -1,41 +1,20 @@
-<div class="dashboard-container">
+<div class="admin-layout">
+  <nav class="sidebar">
+    <h3>CPD Admin</h3>
+    <ul>
+      <li><a routerLink="/admin/overview">Dashboard</a></li>
+      <li><a routerLink="/admin/users">User Management</a></li>
+      <li><a href="#">Course Management</a></li>
+      </ul>
+  </nav>
 
-  <div class="user-management-panel">
-
-    <div class="panel-header">
-      <h2>User Management</h2>
-      <button class="add-user-btn" (click)="showAddUserForm = true">+ Add User</button>
+  <main class="main-content">
+    <header class="main-header">
+      <app-breadcrumb></app-breadcrumb>
+    </header>
+    
+    <div class="page-content">
+      <router-outlet></router-outlet>
     </div>
-
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Job Title</th>
-          <th>Access Level</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let user of users">
-          <td>{{ user.first_name }} {{ user.last_name }}</td>
-          <td>{{ user.email }}</td>
-          <td>{{ user.job_title }}</td>
-          <td>{{ user.access_level }}</td>
-          <td>
-            <button class="edit-btn">Edit</button>
-            <button class="delete-btn">Delete</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <app-add-user-form
-    *ngIf="showAddUserForm"
-    (userAdded)="onUserAdded()"
-    (closeForm)="showAddUserForm = false">
-  </app-add-user-form>
-
+  </main>
 </div>

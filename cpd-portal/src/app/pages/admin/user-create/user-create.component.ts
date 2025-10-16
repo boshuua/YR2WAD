@@ -1,19 +1,17 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { AuthService } from '../../service/auth.service';
+import { Router } from '@angular/router';
+import { AuthService } from '../../../service/auth.service';
 
 @Component({
-  selector: 'app-add-user-form',
+  selector: 'app-user-create',
   standalone: true,
   imports: [CommonModule, FormsModule],
-  templateUrl: './add-user-form.component.html',
-  styleUrls: ['./add-user-form.component.css']
+  templateUrl: './user-create.component.html',
+  styleUrls: ['./user-create.component.css']
 })
-export class AddUserFormComponent {
-  @Output() userAdded = new EventEmitter<void>();
-  @Output() closeForm = new EventEmitter<void>();
-
+export class UserCreateComponent {
   userData = {
     first_name: '',
     last_name: '',
@@ -23,14 +21,13 @@ export class AddUserFormComponent {
     access_level: 'user' // Default to 'user'
   };
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   onSubmit(): void {
     this.authService.adminCreateUser(this.userData).subscribe({
       next: () => {
         alert('User created successfully!');
-        this.userAdded.emit(); // Notify the parent to refresh the user list
-        this.close();
+        this.router.navigate(['/admin/users']); // Navigate back to the user list
       },
       error: (err: any) => {
         console.error('Failed to create user', err);
@@ -38,8 +35,8 @@ export class AddUserFormComponent {
       }
     });
   }
-
-  close(): void {
-    this.closeForm.emit(); // Notify the parent to close the modal
+  
+  cancel(): void {
+    this.router.navigate(['/admin/users']); // Navigate back without saving
   }
 }
