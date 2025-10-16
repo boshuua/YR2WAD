@@ -1,0 +1,41 @@
+<div class="dashboard-container">
+
+  <div class="user-management-panel">
+
+    <div class="panel-header">
+      <h2>User Management</h2>
+      <button class="add-user-btn" (click)="showAddUserForm = true">+ Add User</button>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Job Title</th>
+          <th>Access Level</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users">
+          <td>{{ user.first_name }} {{ user.last_name }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.job_title }}</td>
+          <td>{{ user.access_level }}</td>
+          <td>
+            <button class="edit-btn">Edit</button>
+            <button class="delete-btn">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <app-add-user-form
+    *ngIf="showAddUserForm"
+    (userAdded)="onUserAdded()"
+    (closeForm)="showAddUserForm = false">
+  </app-add-user-form>
+
+</div>
