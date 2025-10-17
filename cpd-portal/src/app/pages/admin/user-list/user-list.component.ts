@@ -30,5 +30,22 @@ export class UserListComponent implements OnInit {
     });
   }
   
-  // We will add the deleteUser() method here
+  // We will add the deleteUser() method here || DONE
+  deleteUser(userId: number, userName: string): void {
+    console.log(`Attempting to delete user with ID: ${userId}`);
+    // Simple confirmation dialog
+    if (confirm(`Are you sure you want to delete the user "${userName}"?`)) {
+      this.authService.adminDeleteUser(userId).subscribe({
+        next: (response) => {
+          alert(response.message || 'User deleted successfully!');
+          // Remove the user from the local array to update the list instantly
+          this.users = this.users.filter(user => user.id !== userId);
+        },
+        error: (err) => {
+          console.error('Failed to delete user', err);
+          alert('Error deleting user: ' + (err.error?.message || err.message)); // Show specific error from backend if available
+        }
+      });
+    }
+  }
 }

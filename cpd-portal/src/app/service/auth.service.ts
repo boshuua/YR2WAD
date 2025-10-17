@@ -17,8 +17,15 @@ export class AuthService {
   adminCreateUser(userData: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/admin_create_user.php`, userData, { withCredentials: true });
   }
-  
+
   getAllUsers(): Observable<any> {
     return this.http.get(`${this.apiUrl}/get_users.php`, { withCredentials: true });
+  }
+
+  adminDeleteUser(userId: number): Observable<any> {
+    // We send the ID as a query parameter, matching the PHP script
+    return this.http.delete(`${this.apiUrl}/admin_delete_user.php?id=${userId}`, {
+      withCredentials: true
+    });
   }
 }
