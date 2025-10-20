@@ -1,7 +1,7 @@
 <?php
 session_start(); // Start the session at the very top
 include_once '../config/database.php';
-
+include_once '../helpers/log_helper.php';
 $data = json_decode(file_get_contents("php://input"));
 
 if (!isset($data->email) || !isset($data->password)) {
@@ -10,9 +10,8 @@ if (!isset($data->email) || !isset($data->password)) {
 
 $database = new Database();
 $db = $database->getConn(); // Use the correct method name
-log_activity($db, null, 'STARTUP_TEST', 'script_executed', 'Testing basic log call');
 // pgcrypto query
-$query = "SELECT id, first_name, last_name, password, access_level FROM users WHERE email = :email AND password = crypt(:password, password)";
+$query = "SELECT id, first_name, last_name, email, password, access_level FROM users WHERE email = :email AND password = crypt(:password, password)";
 $stmt = $db->prepare($query);
 $stmt->bindParam(':email', $data->email);
 $stmt->bindParam(':password', $data->password);
@@ -26,7 +25,8 @@ if ($stmt->rowCount() > 0) {
     // ===============================================================
     $_SESSION['user_id'] = $row['id'];
     $_SESSION['access_level'] = $row['access_level'];
-
+    $_SESSION['user_email'] = $row['email'];
+    log_activity($db, $row['id'], $row['email'], 'login_success');
     http_response_code(200);
     echo json_encode([
         "message" => "Login successful.",
@@ -37,6 +37,8 @@ if ($stmt->rowCount() > 0) {
         ]
     ]);
 } else {
+    log_activity($db, null, $data->email, 'login_failed', 'Invalid credentials');
+
     http_response_code(401);
     echo json_encode(["message" => "Login failed. Invalid credentials."]);
 }
