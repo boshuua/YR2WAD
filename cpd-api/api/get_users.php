@@ -10,7 +10,7 @@ if (!isset($_SESSION['access_level']) || $_SESSION['access_level'] !== 'admin') 
 }
 
 $database = new Database();
-$db = $database->getConn(); // Use the correct method name
+$db = $database->getConn(); 
 
 // Check if an ID is provided in the query string
 $userId = isset($_GET['id']) ? (int)$_GET['id'] : 0;

@@ -6,7 +6,9 @@ include_once '../helpers/log_helper.php'; // Include the helper
 $data = json_decode(file_get_contents("php://input"));
 
 if (!isset($data->email) || !isset($data->password)) {
-    http_response_code(400); echo json_encode(["message" => "Email and password are required."]); exit();
+    http_response_code(400);
+    echo json_encode(["message" => "Email and password are required."]);
+    exit();
 }
 
 $database = new Database();
@@ -28,7 +30,11 @@ if ($stmt->rowCount() > 0) {
     $_SESSION['user_email'] = $row['email']; // *** Store email in session ***
 
     // *** Log successful login ***
-    error_log("--- Calling log_activity for login_success ---"); // Debug log
+    if ($db instanceof PDO) {
+        error_log("DB connection object seems valid before calling log_activity.");
+    } else {
+        error_log("!!! DB connection object is INVALID before calling log_activity. !!!");
+    }
     log_activity($db, $row['id'], $row['email'], 'login_success');
     // *** End log ***
 
@@ -50,4 +56,3 @@ if ($stmt->rowCount() > 0) {
     http_response_code(401);
     echo json_encode(["message" => "Login failed. Invalid credentials."]);
 }
-?>
