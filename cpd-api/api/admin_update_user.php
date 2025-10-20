@@ -1,7 +1,7 @@
 <?php
 session_start();
 include_once '../config/database.php';
-
+include_once '../helpers/log_helper.php';
 
 
 // --- Security Check ---

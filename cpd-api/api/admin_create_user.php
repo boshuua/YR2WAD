@@ -1,7 +1,7 @@
 <?php
 session_start();
 include_once '../config/database.php';
-
+include_once '../helpers/log_helper.php';
 if (!isset($_SESSION['access_level']) || $_SESSION['access_level'] !== 'admin') {
     http_response_code(403); // Forbidden
     echo json_encode(["message" => "Access Denied: Admin privileges required."]);
