@@ -1,0 +1,119 @@
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive columns */
+  gap: 1.5rem; /* Space between panels */
+  margin-top: 1.5rem;
+}
+
+.dashboard-panel {
+  background-color: var(--white); /* Use variable from styles.css */
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: var(--box-shadow); /* Use variable from styles.css */
+  border: 1px solid var(--border-color); /* Use variable from styles.css */
+  display: flex;
+  flex-direction: column; /* Stack content vertically */
+}
+
+.dashboard-panel h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--dark-blue); /* Use variable */
+}
+
+.user-list-panel ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem 0; /* Add margin below list */
+  flex-grow: 1; /* Allow list to take available space */
+}
+
+.user-list-panel li {
+  padding: 0.4rem 0;
+  border-bottom: 1px dashed #eee;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+.user-list-panel li:last-child {
+  border-bottom: none;
+}
+
+.calendar-panel p,
+.activity-log-panel p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    flex-grow: 1; /* Allow paragraph to take space */
+    margin-bottom: 1rem;
+}
+
+.activity-log-panel b {
+    color: var(--warning-color); /* Or another color */
+}
+
+.panel-footer {
+  margin-top: auto; /* Push footer to the bottom */
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+  text-align: right;
+}
+
+.panel-footer a {
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.error-message {
+  color: var(--danger-color);
+  font-weight: 500;
+  padding: 0.5rem 0;
+}
+
+/* Styles for Activity Log Panel */
+.activity-log-panel ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem 0;
+  font-size: 0.85rem;
+  flex-grow: 1; /* Allow list to take available space */
+}
+
+.activity-log-panel li {
+  padding: 0.4rem 0;
+  border-bottom: 1px dashed #eee;
+  line-height: 1.4;
+}
+
+.activity-log-panel li:last-child {
+  border-bottom: none;
+}
+
+.log-timestamp {
+  color: #888;
+  margin-right: 0.5em;
+}
+
+.log-user {
+  font-weight: 500;
+  color: var(--primary-color);
+  margin-right: 0.5em;
+}
+
+.log-action {
+  color: var(--text-secondary);
+  margin-right: 0.5em;
+}
+
+.log-details {
+  color: #777;
+  font-style: italic;
+}
+
+
+/* Make grid single column on smaller screens */
+@media (max-width: 600px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}

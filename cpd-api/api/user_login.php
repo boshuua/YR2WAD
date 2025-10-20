@@ -10,7 +10,7 @@ if (!isset($data->email) || !isset($data->password)) {
 
 $database = new Database();
 $db = $database->getConn(); // Use the correct method name
-
+log_activity($db, null, 'STARTUP_TEST', 'script_executed', 'Testing basic log call');
 // pgcrypto query
 $query = "SELECT id, first_name, last_name, password, access_level FROM users WHERE email = :email AND password = crypt(:password, password)";
 $stmt = $db->prepare($query);

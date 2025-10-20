@@ -41,4 +41,7 @@ export class AuthService {
       withCredentials: true
     });
   }
+  getActivityLog(limit: number = 20): Observable<any> { // Default limit
+    return this.http.get(`${this.apiUrl}/get_activity_log.php?limit=${limit}`, { withCredentials: true });
+  }
 }
