@@ -2,9 +2,8 @@
 session_start();
 include_once '../config/database.php';
 
-// ===============================================================
 // SESSION SECURITY CHECK
-// ===============================================================
+
 if (!isset($_SESSION['access_level']) || $_SESSION['access_level'] !== 'admin') {
     http_response_code(403); // Forbidden
     echo json_encode(["message" => "Access Denied: Admin privileges required."]);
@@ -22,4 +21,3 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 http_response_code(200);
 echo json_encode($users);
-?>
