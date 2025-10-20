@@ -14,11 +14,9 @@ import { ConfirmModalComponent } from '../../../components/confirm-modal/confirm
 })
 export class UserListComponent implements OnInit {
   users: any[] = [];
-  // --- Modal Control Properties ---
   showDeleteConfirmModal = false;
   userToDeleteId: number | null = null;
   userToDeleteName: string = '';
-
 
   constructor(private authService: AuthService) { }
 
@@ -27,7 +25,8 @@ export class UserListComponent implements OnInit {
   }
 
   loadUsers(): void {
-    this.authService.getAllUsers().subscribe({
+    // *** Corrected: Call getUsers ***
+    this.authService.getUsers().subscribe({ // <--- Changed method name
       next: (data) => {
         this.users = data;
       },
