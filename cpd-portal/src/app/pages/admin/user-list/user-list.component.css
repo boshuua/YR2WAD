@@ -40,3 +40,41 @@ td .edit-btn { background-color: #ffc107; color: #333; }
 td .delete-btn { background-color: #dc3545; color: white; }
 td .edit-btn:hover,
 td .delete-btn:hover { opacity: 0.8; }
+.table-responsive {
+  width: 100%;
+  overflow-x: auto; /* Enable horizontal scrolling */
+  -webkit-overflow-scrolling: touch; /* Smoother scrolling on iOS */
+}
+
+/* Optional: Improve table appearance on small screens */
+@media only screen and (max-width: 768px) {
+  .user-management-panel {
+    padding: 1rem;
+  }
+
+  .panel-header {
+    flex-direction: column; /* Stack header items */
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  /* Make table cells wrap text better if needed */
+  td, th {
+     white-space: normal; /* Allow text wrapping */
+     padding: 0.75rem 0.5rem; /* Adjust padding */
+  }
+
+  /* Maybe hide less important columns */
+  /* Example: Hiding Job Title on very small screens */
+  @media only screen and (max-width: 480px) {
+    th:nth-child(3), /* Assuming Job Title is the 3rd column */
+    td:nth-child(3) {
+      display: none;
+    }
+  }
+}
+
+/* Ensure the wrapper div takes up necessary space */
+.user-management-panel {
+  overflow: hidden; /* Prevent panel from overflowing due to table scroll */
+}

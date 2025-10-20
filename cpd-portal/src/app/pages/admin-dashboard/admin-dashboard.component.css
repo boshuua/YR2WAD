@@ -1,6 +1,7 @@
 :host {
   display: block;
   height: 100vh;
+  overflow: hidden; /* Prevent body scroll */
 }
 
 .admin-layout {
@@ -9,47 +10,117 @@
 }
 
 .sidebar {
-  width: 250px;
+  width: 250px; /* Expanded width */
   background: var(--dark-blue);
   color: #ecf0f1;
-  padding: 1.5rem 1rem;
+  padding: 0 1rem 1.5rem 1rem; /* Adjusted top padding */
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
+  transition: width 0.3s ease-in-out, padding 0.3s ease-in-out;
+  position: relative;
+  overflow: hidden; /* Important: Keep hidden to clip text */
+  z-index: 100;
 }
 
-.sidebar h3 {
-  text-align: center;
-  margin: 0 0 1.5rem 0;
+/* --- Sidebar Header (for toggle) --- */
+.sidebar-header {
+  display: flex;
+  justify-content: flex-end; /* Position toggle to the right */
+  align-items: center;
+  height: 60px; /* Match main header height or desired height */
+  padding: 0;
   border-bottom: 1px solid #4a627a;
-  padding-bottom: 1.5rem;
-  font-size: 1.25rem;
-  font-weight: 700;
+  margin-bottom: 1.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  transition: padding 0.3s ease-in-out, justify-content 0.3s ease-in-out; /* Add justify-content transition */
 }
 
+/* --- Toggle Button Styles --- */
+.sidebar-toggle {
+  background-color: transparent;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 101;
+  transition: background-color 0.2s;
+  margin-left: auto; /* Push to the right by default */
+}
+.sidebar-toggle:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+.sidebar-toggle .icon {
+  font-size: 1.4rem;
+  line-height: 1;
+  font-weight: bold;
+}
+
+/* --- Sidebar Links --- */
 .sidebar ul {
   list-style: none;
   padding: 0;
   margin: 0;
+  flex-grow: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .sidebar a {
-  display: block;
+  display: flex;
+  align-items: center;
+  /* No gap needed, positioning handled differently */
   color: #bdc3c7;
   text-decoration: none;
-  padding: 0.8rem 1rem;
+  padding: 0.8rem 1rem; /* Standard padding */
   border-radius: 5px;
   margin-bottom: 0.5rem;
-  transition: background-color 0.2s, color 0.2s;
+  transition: background-color 0.2s, color 0.2s, padding 0.3s ease-in-out;
   font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  position: relative; /* Context for absolute icon */
+  min-height: calc(1.6rem + 1em);
+}
+
+/* Icon: Hidden by default (expanded state), centered absolutely */
+.sidebar a .icon {
+  font-size: 1.1rem;
+  width: 24px;
+  text-align: center;
+  flex-shrink: 0;
+  position: absolute;
+  left: 50%; /* Center horizontally for collapsed state */
+  top: 50%;
+  transform: translate(-50%, -50%); /* Center perfectly */
+  opacity: 0; /* Hidden when expanded */
+  visibility: hidden;
+  transition: opacity 0.2s ease-in-out 0.1s, visibility 0s linear 0.3s;
+}
+
+/* Link Text: Visible by default (expanded state) */
+.sidebar a .link-text {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.2s ease-in-out 0s, visibility 0s linear 0s; /* Fade out faster */
+  width: 100%; /* Take full width */
+  padding-left: 0; /* No specific padding needed */
+  text-align: left; /* Align text normally */
 }
 
 .sidebar a:hover,
-.sidebar a.active { /* This class will be added by Angular for the active route */
+.sidebar a.active {
   background-color: #34495e;
   color: var(--white);
 }
 
+/* --- Main Content Area --- */
 .main-content {
   flex: 1;
   display: flex;
@@ -59,15 +130,146 @@
 }
 
 .main-header {
-  padding: 1rem 1.5rem;
+  padding: 0 1.5rem;
+  height: 60px;
   background: var(--white);
   border-bottom: 1px solid var(--border-color);
   box-shadow: 0 1px 3px rgba(0,0,0,0.04);
   z-index: 10;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.header-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--dark-blue);
 }
 
 .page-content {
   flex: 1;
   padding: 2rem;
   overflow-y: auto;
+}
+
+/* === COLLAPSED STATE STYLES === */
+.admin-layout.sidebar-collapsed .sidebar {
+  width: 80px; /* Collapsed width */
+  padding: 0 0.5rem 1.5rem 0.5rem; /* Adjusted padding */
+}
+
+/* Center toggle button when collapsed */
+.admin-layout.sidebar-collapsed .sidebar-header {
+  justify-content: center; /* Center the button */
+  padding-left: 0;
+  padding-right: 0;
+}
+.admin-layout.sidebar-collapsed .sidebar-toggle {
+  margin-left: 0; /* Remove auto margin */
+}
+
+/* Show icons when collapsed */
+.admin-layout.sidebar-collapsed .sidebar a .icon {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.2s ease-in-out 0.1s, visibility 0s linear 0.1s; /* Appear after text fade */
+}
+
+/* Hide link text when collapsed */
+.admin-layout.sidebar-collapsed .sidebar a .link-text {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease-in-out 0s, visibility 0s linear 0.2s; /* Fade out faster */
+  width: 0; /* Collapse space */
+}
+
+/* Center link content (the icon) when collapsed */
+.admin-layout.sidebar-collapsed .sidebar a {
+  justify-content: center; /* Center the icon */
+  padding: 0.8rem 0.5rem; /* Match collapsed sidebar padding */
+}
+
+
+/* === RESPONSIVE ADJUSTMENTS === */
+@media only screen and (max-width: 768px) {
+  .admin-layout {
+    flex-direction: column;
+    height: auto;
+  }
+
+  /* Reset sidebar for mobile */
+  .sidebar {
+    width: 100% !important;
+    height: auto;
+    padding: 1rem !important;
+    box-sizing: border-box;
+    transition: none;
+    position: static;
+    overflow: visible;
+  }
+
+  /* Hide the desktop toggle header */
+  .sidebar-header {
+     display: none;
+  }
+
+  /* Ensure icons are hidden and text is visible on mobile */
+  /* This simplifies mobile view to text-only */
+  .sidebar a .icon {
+      /* display: none !important; */ /* Option 1: Completely remove icon */
+      /* Option 2: Keep structure, but ensure hidden */
+      opacity: 0 !important;
+      visibility: hidden !important;
+      position: absolute !important; /* Keep out of flow */
+      width: 0 !important; /* Collapse space */
+
+  }
+  .sidebar a .link-text {
+      opacity: 1 !important;
+      visibility: visible !important;
+      width: auto !important;
+      transition: none !important;
+      padding-left: 0 !important; /* No padding needed */
+      text-align: left !important;
+  }
+
+   /* Reset link layout for mobile */
+   .sidebar a {
+      justify-content: flex-start !important;
+      padding: 0.8rem 1rem !important;
+      gap: 0.8rem !important; /* Add gap back if icons were displayed: none */
+      position: relative !important;
+   }
+
+  /* Main content takes full width */
+  .main-content {
+    margin-left: 0 !important;
+    transition: none;
+  }
+
+  /* Adjust main header for mobile */
+  .main-header {
+    height: auto;
+    padding: 0.75rem 1rem;
+  }
+  .header-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+  .header-title {
+    font-size: 1.1rem;
+  }
+
+  .page-content {
+    padding: 1rem;
+  }
 }

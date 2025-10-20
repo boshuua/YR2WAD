@@ -1,18 +1,38 @@
-<div class="admin-layout">
+<div class="admin-layout" [class.sidebar-collapsed]="isSidebarCollapsed">
   <nav class="sidebar">
-    <h3>CPD Admin</h3>
+    <div class="sidebar-header">
+      <button class="sidebar-toggle" (click)="toggleSidebar()">
+        <span class="icon">{{ isSidebarCollapsed ? '☰' : '«' }}</span>
+      </button>
+    </div>
+
     <ul>
-      <li><a routerLink="/admin/overview">Dashboard</a></li>
-      <li><a routerLink="/admin/users">User Management</a></li>
-      <li><a href="#">Course Management</a></li>
+      <li>
+        <a routerLink="/admin/overview" routerLinkActive="active">
+          <span class="icon">[D]</span> <span class="link-text">Dashboard</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/admin/users" routerLinkActive="active">
+          <span class="icon">[U]</span> <span class="link-text">User Management</span>
+        </a>
+      </li>
+      <li>
+        <a href="#" routerLinkActive="active">
+          <span class="icon">[Crs]</span> <span class="link-text">Course Management</span>
+        </a>
+      </li>
       </ul>
   </nav>
 
   <main class="main-content">
     <header class="main-header">
-      <app-breadcrumb></app-breadcrumb>
+      <div class="header-content">
+        <span class="header-title">CPD Admin</span>
+        <app-breadcrumb></app-breadcrumb>
+      </div>
     </header>
-    
+
     <div class="page-content">
       <router-outlet></router-outlet>
     </div>

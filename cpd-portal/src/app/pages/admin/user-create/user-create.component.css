@@ -25,3 +25,29 @@ button { padding: 0.75rem 1.5rem; border-radius: 5px; border: none; cursor: poin
 /* General form styling */
 input, select { width: 100%; padding: 0.75rem; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
 label { display: block; margin-bottom: 0.5rem; font-weight: 500; }
+
+
+@media only screen and (max-width: 600px) {
+  .form-grid {
+    grid-template-columns: 1fr; /* Stack grid items */
+    gap: 0; /* Remove gap or adjust as needed */
+  }
+
+  /* Add margin-bottom back to stacked items if gap is removed */
+  .form-grid .form-group {
+     margin-bottom: 1rem;
+  }
+
+  .form-panel {
+    padding: 1rem; /* Reduce padding */
+  }
+
+  .form-actions {
+    flex-direction: column; /* Stack buttons */
+    gap: 0.5rem;
+  }
+
+  .form-actions button {
+    width: 100%; /* Make buttons full width */
+  }
+}

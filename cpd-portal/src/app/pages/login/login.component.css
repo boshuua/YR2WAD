@@ -72,3 +72,15 @@ button:hover {
   margin-top: 1.5rem;
   font-weight: 500;
 }
+@media only screen and (max-width: 480px) {
+  .login-box {
+    padding: 1.5rem; /* Reduce padding on very small screens */
+    margin: 0 1rem; /* Add some horizontal margin */
+    max-width: calc(100% - 2rem); /* Ensure it doesn't touch edges */
+  }
+
+  h2 {
+    font-size: 1.5rem; /* Slightly smaller heading */
+    margin-bottom: 1.5rem;
+  }
+}

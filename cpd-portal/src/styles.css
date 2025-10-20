@@ -52,3 +52,22 @@ a:hover {
   text-decoration: underline;
   color: var(--primary-hover);
 }
+
+
+/* Small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  body {
+    font-size: 14px; /* Adjust base font size slightly for smaller screens */
+  }
+  /* Add mobile-specific global styles here */
+}
+
+/* Medium devices (tablets, 601px to 992px) */
+@media only screen and (min-width: 601px) and (max-width: 992px) {
+  /* Add tablet-specific global styles here */
+}
+
+/* Large devices (desktops, 993px and up) */
+@media only screen and (min-width: 993px) {
+  /* Add desktop-specific global styles here (or rely on default styles) */
+}
